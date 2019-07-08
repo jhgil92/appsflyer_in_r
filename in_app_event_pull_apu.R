@@ -1,10 +1,10 @@
-# 앱스플라이어 Raw Data 리포트 API 세팅 - In App Event : 계좌개설(acnt_open_12)
+# 앱스플라이어 Raw Data 리포트 API 세팅 - In App Event
 
 """
 앱스플라이어 Pull API를 통해 Non-Organic In App Event의 Raw Data를 다운로드한 후,
 포털(네이버, 다음) 키워드 광고의 검색어를 parsing하여
-키워드 단위의 이벤트 발생건수(계좌개설 건수)를 추적하는 코드입니다.
-기간을 입력하면(from, to) 매체/키워드별 이벤트 발생건수(계좌개설건수)가 조회됩니다.
+키워드 단위의 이벤트 발생건수를 추적하는 코드입니다.
+기간을 입력하면(from, to) 매체/키워드별 이벤트 발생건수가 조회됩니다.
 Output 데이터는 raw data와 keyword report입니다.
 
 - Appsflyer API Policy : https://support.appsflyer.com/hc/en-us/articles/207034366-API-Policy
@@ -16,7 +16,7 @@ library(stringr)
 library(urltools)
 library(httr)
 
-af_keyword_report <- function(from = '2019-05-26' , to = '2019-06-24', event = 'acnt_open_12'){
+af_keyword_report <- function(from = '2019-05-26' , to = '2019-06-24', event = '{event_name}'){
   # API Token값 세팅
   token = '{API_TOKEN}' # API token은 각자의 환경에 맞춰서 수정
   
@@ -61,7 +61,7 @@ af_keyword_report <- function(from = '2019-05-26' , to = '2019-06-24', event = '
     distinct ->> keyword_report # keyword_report 전역변수로 대입
   
   # 결과값 출력
-  cat('\n', from, " ~ ", to, "매체/키워드별 계좌개설")
+  cat('\n', from, " ~ ", to, "매체/키워드별 이벤트건수")
   print(keyword_report)
 }
 
